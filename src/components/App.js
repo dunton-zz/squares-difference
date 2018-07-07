@@ -39,7 +39,9 @@ class App extends Component {
         sum += x;
       }
       let sumOfNums = Math.pow(sum,2);
-      return sumOfNums;
+      // calculate difference
+      let difference = Math.abs(sumOfSquares - sumOfNums);
+      return difference;
     }
 
     // return new Promise
