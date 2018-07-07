@@ -32,15 +32,16 @@ class SearchBar extends Component {
 
     // reset state so nothing displays in input
     this.setState({number: ''})
+    // call onFormSubmit
+    this.props.onFormSubmit(number);
 
-    console.log(number);
   }
   render() {
     return(
       <div className="row search">
         <div className="col-md-12">
           <form onSubmit={this.onSubmit}>
-            <input type="number" ref="num" value={this.state.number} onChange={this.updateInput} className="form-control" placeholder="Compare difference in squares"></input>
+            <input type="number" ref="number" value={this.state.number} onChange={this.updateInput} className="form-control" placeholder="Compare difference in squares"></input>
           </form>
         </div>
       </div>
