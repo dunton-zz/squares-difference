@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import SearchBar from 'components/SearchBar'
+import SearchBar from 'components/SearchBar';
+import DataDisplay from 'components/DataDisplay';
 
 class App extends Component {
   constructor() {
     super();
 
+    this.state = {
+      data: ''
+    }
     // bind functions
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.initialize = this.initialize.bind(this);
@@ -13,14 +17,14 @@ class App extends Component {
   onFormSubmit(number) {
 
     let initializePromise = this.initialize(number);
-
-    initializePromise.then(function(result){
-      let details = result;
-      console.log(details);
-      }, function(err) {
-        console.log(err);
-      })
-
+    let details;
+    // TALK ABOUT THIS
+    initializePromise.then(result => {
+      details = result;
+      this.setState({data:details})
+    }, function(err) {
+      console.log(err);
+    }.bind(this))
 
   }
 
@@ -58,7 +62,7 @@ class App extends Component {
           let value = calculation(number);
           result.value = value;
           result.number = number;
-          result.datetime = datetime;
+          result.datetime = datetime.toString();
           resolve(result);
         }
         else {
@@ -66,13 +70,14 @@ class App extends Component {
           reject(reason);
         }
     })
-
   }
+
 
   render() {
     return (
       <div>
         <SearchBar onFormSubmit={this.onFormSubmit} />
+        <DataDisplay data={this.state.data}/>
       </div>
     );
   }
