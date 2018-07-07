@@ -7,11 +7,16 @@ class App extends Component {
     super();
 
     this.state = {
-      data: ''
+      data: '',
+      storage: []
     }
     // bind functions
     this.onFormSubmit = this.onFormSubmit.bind(this);
-    this.initialize = this.initialize.bind(this);
+    this.logSearch = this.logSearch.bind(this);
+  }
+
+  logSearch(details) {
+    this.state.storage.push({number:details.number, time: details.datetime});
   }
 
   onFormSubmit(number) {
@@ -21,10 +26,11 @@ class App extends Component {
     // TALK ABOUT THIS
     initializePromise.then(result => {
       details = result;
-      this.setState({data:details})
+      this.setState({data:details});
+      this.logSearch(details);
     }, function(err) {
       console.log(err);
-    }.bind(this))
+    }.bind(this)) // BIND HERE TO BE ABLE TO ACCESS STATE
 
   }
 
@@ -74,6 +80,7 @@ class App extends Component {
 
 
   render() {
+    console.log(this.state.storage)
     return (
       <div>
         <SearchBar onFormSubmit={this.onFormSubmit} />
