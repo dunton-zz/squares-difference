@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SearchBar from 'components/SearchBar';
 import DataDisplay from 'components/DataDisplay';
+import _ from 'lodash';
 
 class App extends Component {
   constructor() {
@@ -100,10 +101,13 @@ class App extends Component {
     // only pass component the last index of the state
     let finalIndex = this.state.data.length;
     let data = this.state.data[finalIndex-1];
-    
+
+    // throttle user input
+    const debouncedFormSubmit = _.debounce((number) => { this.onFormSubmit(number)}, 300);
+
     return (
       <div>
-        <SearchBar onFormSubmit={this.onFormSubmit} />
+        <SearchBar onFormSubmit={debouncedFormSubmit} />
         <DataDisplay data={data} />
       </div>
     );

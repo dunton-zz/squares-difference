@@ -24,7 +24,7 @@ class SearchBar extends Component {
 
   validateInput(number) {
     // check if number is between 0 and 100
-    if (number < 0 || number > 100) { // TODO better error handling
+    if (number < 0 || number > 100) { // TODO better error handling/form validation
       alert('Please enter a number between 0 and 100');
       this.setState({number: ''});
       return false;

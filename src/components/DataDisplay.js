@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import 'styles/datadisplay.css';
 
 const DataDisplay = ({ data }) => {
@@ -18,8 +18,8 @@ const DataDisplay = ({ data }) => {
           <h4>The difference of your request is: {data.value}</h4>
         </div>
         <div className="col-md-6 data">
-          <p>Sent at: {data.datetime}</p>
           <p>Number requested: {data.number}</p>
+          <p>Sent at: {data.datetime}</p>
         </div>
         <div className="col-md-6 data">
           <p>How many occurrences: {data.occurrences}.</p>
