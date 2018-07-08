@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import 'styles/datadisplay.css';
 
 const DataDisplay = ({ data }) => {
-
+  // if data then render, otherwise don't show anything
   if (data) {
+    // make formatting of last occurrence legible
     let last;
     if (data.last_datetime === 'first occurrence' ) {
-      //<p>The last occurrence happened at: {data.last_datetime}</p>
       last = `This is the first occurrence of ${data.number}`
     } else {
       last = `The last occurrence of ${data.number} happened on ${data.last_datetime}`
     }
+    // render and display data
     return(
       <div className="row">
         <div className="col-md-12 data">

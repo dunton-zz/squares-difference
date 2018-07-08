@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import 'styles/searchbar.css';
 
 class SearchBar extends Component {
+  // set up constructor
   constructor(props) {
     super(props);
 
     this.state = {
       number: '',
-      error: false
+      //error: false
     }
 
     // bind functions
@@ -17,6 +18,7 @@ class SearchBar extends Component {
   }
 
   updateInput(e){
+    // update state for input
     this.setState({number: e.target.value})
   }
 
@@ -24,17 +26,15 @@ class SearchBar extends Component {
     // check if number is between 0 and 100
     if (number < 0 || number > 100) { // TODO better error handling
       alert('Please enter a number between 0 and 100');
-      this.setState({number: '', error: true});
+      this.setState({number: ''});
       return false;
     }
-
     // check if a number
     if (Number.isInteger(number)) {
       alert('Please enter a whole number between 0 and 100');
-      this.setState({number: '', error: true});
+      this.setState({number: ''});
       return false;
     }
-
     return true;
   }
 
@@ -45,15 +45,15 @@ class SearchBar extends Component {
     // grab number value
     let number = this.state.number;
 
-
-
     // reset state so nothing displays in input
     this.setState({number: ''})
+
     // call onFormSubmit if no errors
     if (this.validateInput(number)) {
       this.props.onFormSubmit(number);
     }
   }
+
   render() {
     return(
       <div className="row search">

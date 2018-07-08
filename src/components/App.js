@@ -5,31 +5,29 @@ import DataDisplay from 'components/DataDisplay';
 class App extends Component {
   constructor() {
     super();
-
     this.state = {
       data: []
-    }
+    };
     // bind functions
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
   onFormSubmit(number) {
-
-    let initializePromise = this.initialize(number);
-    let details;
+    let initializePromise = this.initialize(number); // access promise
+    let details; // declare details
     // TALK ABOUT THIS
     initializePromise.then(result => {
       details = result;
-      let newState = this.state.data;
-      newState.push(details);
-      this.setState({data:newState});
-      console.log(this.state.data)
+      let newState = this.state.data; // set here to make new state we can push to
+      newState.push(details); // push new part of state
+      this.setState({data:newState}); // set newState
+      //console.log(this.state.data)
     }, function(err) {
-      console.log(err);
+      alert('Oops, something went wrong, please try again');
+      console.log(err); // log error
     }.bind(this)) // BIND HERE TO BE ABLE TO ACCESS STATE
 
   }
-
 
   initialize(number){
     let calculation = n => {
@@ -51,20 +49,20 @@ class App extends Component {
     }
 
     let countOccurences = n => {
-      let count = 1;
+      let count = 1; // set default occurrences to 1
       this.state.data.map(z => {
         if (z.number === n) {
-          count += 1
+          count += 1 // add one everytime we see the same occurrence
         }
       })
       return count;
     }
 
     let lastDateTime = n => {
-      let last = "first occurrence";
+      let last = "first occurrence"; // mark if first occurrence
       this.state.data.map(z => {
         if (z.number === n) {
-          last = z.datetime;
+          last = z.datetime; // find last dataetime
         }
       })
       return last;
@@ -73,34 +71,36 @@ class App extends Component {
     // return new Promise
     return new Promise(function(resolve, reject) {
         if(number) {
-          var result = {};
-          let currentdate = new Date();
+          var result = {}; // declare object
+          let currentdate = new Date(); // set date then format it
           let datetime = currentdate.getDate() + "/"
                 + (currentdate.getMonth()+1)  + "/"
                 + currentdate.getFullYear() + " @ "
                 + currentdate.getHours() + ":"
                 + currentdate.getMinutes() + ":"
                 + currentdate.getSeconds();
-          let value = calculation(number);
-          let occurrences = countOccurences(number);
-          let last_datetime = lastDateTime(number);
-          result.value = value;
-          result.number = number;
-          result.datetime = datetime.toString();
-          result.occurrences = occurrences;
-          result.last_datetime = last_datetime;
-          resolve(result);
+          let value = calculation(number); // calculate answer
+          let occurrences = countOccurences(number); // find occurrences
+          let last_datetime = lastDateTime(number); // find lastDateTime
+          result.value = value; // add to results object
+          result.number = number; // add to results object
+          result.datetime = datetime.toString(); // add to results object
+          result.occurrences = occurrences; // add to results object
+          result.last_datetime = last_datetime; // add to results object
+          resolve(result); // resolve
         }
         else {
-          let reason = new Error('not number');
+          let reason = new Error('Error on formatting'); // reason dictated
           reject(reason);
         }
     })
   }
 
   render() {
+    // only pass component the last index of the state
     let finalIndex = this.state.data.length;
     let data = this.state.data[finalIndex-1];
+    
     return (
       <div>
         <SearchBar onFormSubmit={this.onFormSubmit} />
