@@ -20,7 +20,9 @@ class App extends Component {
     // TALK ABOUT THIS
     initializePromise.then(result => {
       details = result;
-      this.state.data.push(details);
+      let newState = this.state.data;
+      newState.push(details);
+      this.setState({data:newState});
       console.log(this.state.data)
     }, function(err) {
       console.log(err);
@@ -97,10 +99,12 @@ class App extends Component {
   }
 
   render() {
+    let finalIndex = this.state.data.length;
+    let data = this.state.data[finalIndex-1];
     return (
       <div>
         <SearchBar onFormSubmit={this.onFormSubmit} />
-        <DataDisplay data={this.state.data}/>
+        <DataDisplay data={data} />
       </div>
     );
   }
