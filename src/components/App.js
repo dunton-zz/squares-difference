@@ -7,16 +7,10 @@ class App extends Component {
     super();
 
     this.state = {
-      data: '',
-      storage: []
+      data: []
     }
     // bind functions
     this.onFormSubmit = this.onFormSubmit.bind(this);
-    this.logSearch = this.logSearch.bind(this);
-  }
-
-  logSearch(details) {
-    this.state.storage.push({number:details.number, time: details.datetime});
   }
 
   onFormSubmit(number) {
@@ -26,8 +20,8 @@ class App extends Component {
     // TALK ABOUT THIS
     initializePromise.then(result => {
       details = result;
-      this.setState({data:details});
-      this.logSearch(details);
+      this.state.data.push(details);
+      console.log(this.state.data)
     }, function(err) {
       console.log(err);
     }.bind(this)) // BIND HERE TO BE ABLE TO ACCESS STATE
@@ -54,6 +48,26 @@ class App extends Component {
       return difference;
     }
 
+    let countOccurences = n => {
+      let count = 1;
+      this.state.data.map(z => {
+        if (z.number === n) {
+          count += 1
+        }
+      })
+      return count;
+    }
+
+    let lastDateTime = n => {
+      let last = "This is the first occurrence";
+      this.state.data.map(z => {
+        if (z.number === n) {
+          last = z.datetime;
+        }
+      })
+      return last;
+    }
+
     // return new Promise
     return new Promise(function(resolve, reject) {
         if(number) {
@@ -66,9 +80,13 @@ class App extends Component {
                 + currentdate.getMinutes() + ":"
                 + currentdate.getSeconds();
           let value = calculation(number);
+          let occurrences = countOccurences(number);
+          let last_datetime = lastDateTime(number);
           result.value = value;
           result.number = number;
           result.datetime = datetime.toString();
+          result.occurrences = occurrences;
+          result.last_datetime = last_datetime;
           resolve(result);
         }
         else {
@@ -78,9 +96,7 @@ class App extends Component {
     })
   }
 
-
   render() {
-    console.log(this.state.storage)
     return (
       <div>
         <SearchBar onFormSubmit={this.onFormSubmit} />

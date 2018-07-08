@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import 'styles/datadisplay.css';
 
 function DataDisplay(props) {
+  console.log(props.data)
   if (props.data.value) {
     return (
       <div className="row">
