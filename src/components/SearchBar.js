@@ -40,8 +40,9 @@ class SearchBar extends Component {
     return(
       <div className="row search">
         <div className="col-md-12">
+          <h3>Input a number to find the sum of the squares of the first n natural numbers and the square of the sum of the same first n natural numbers</h3>
           <form onSubmit={this.onSubmit}>
-            <input type="number" ref="number" value={this.state.number} onChange={this.updateInput} className="form-control" placeholder="Compare difference in squares"></input>
+            <input type="number" ref="number" value={this.state.number} onChange={this.updateInput} className="form-control" placeholder="Input a number!"></input>
           </form>
         </div>
       </div>

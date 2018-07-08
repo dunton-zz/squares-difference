@@ -61,7 +61,7 @@ class App extends Component {
     }
 
     let lastDateTime = n => {
-      let last = "This is the first occurrence";
+      let last = "first occurrence";
       this.state.data.map(z => {
         if (z.number === n) {
           last = z.datetime;
