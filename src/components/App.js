@@ -26,7 +26,7 @@ class App extends Component {
     }, function(err) {
       alert('Oops, something went wrong, please try again');
       console.log(err); // log error
-    }.bind(this)) // BIND HERE TO BE ABLE TO ACCESS STATE
+    })
 
   }
 
